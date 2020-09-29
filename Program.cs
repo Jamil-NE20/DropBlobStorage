@@ -24,12 +24,12 @@ namespace DropBlobStorage
 
 
             // Create a local file in the ./data/ directory for uploading and downloading
-            string localPath = "C:/Users/Studerande/Desktop/Lexicon/Study information and Problem/Azure/Lab/DropBoxConsole/DropBlopStorage/data/";
+            string localPath = "../data/";
             string fileName = "myFile" + Guid.NewGuid().ToString() + ".txt";
             string localFilePath = Path.Combine(localPath, fileName);
 
             // Write text to the file
-            await File.WriteAllTextAsync(localFilePath, "Hello, World!");
+            await File.WriteAllTextAsync(localFilePath, "Hello, Jamil!");
 
             // Get a reference to a blob
             BlobClient blobClient = containerClient.GetBlobClient(fileName);

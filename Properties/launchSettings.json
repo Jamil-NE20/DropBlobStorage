@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DropBlobStorage": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Storage_Account": "DefaultEndpointsProtocol=https;AccountName=blobstorageconsole;AccountKey=lq5tCLzNQgvyxb5b+h8t9FcDVjHEscHW2a/SEvihmXOlQQrNoOJ4MSldkZ3HDXbGG21DXAiUjYhkyk7KjPXeVA==;EndpointSuffix=core.windows.net"
+      }
+    }
+  }
+}
