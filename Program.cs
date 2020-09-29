@@ -22,6 +22,7 @@ namespace DropBlobStorage
             // Create the container and return a container client object
             BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName);
 
+           // Upload blobs to a container:
 
             // Create a local file in the ./data/ directory for uploading and downloading
             string localPath = "../data/";
@@ -41,6 +42,52 @@ namespace DropBlobStorage
             using FileStream uploadFileStream = File.OpenRead(localFilePath);
             await blobClient.UploadAsync(uploadFileStream, true);
             uploadFileStream.Close();
+
+
+            // List all blobs in the container
+
+            Console.WriteLine("Blobs Lists");
+            await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
+            {
+                Console.WriteLine("\t" + blobItem.Name);
+            }
+
+            //Downloading blobs:
+
+            string downloadFilePath = localFilePath.Replace(".txt", "Download.txt");
+
+            Console.WriteLine($"\nDownloading blob to\n\t{ downloadFilePath }\n");
+
+            BlobDownloadInfo download = await blobClient.DownloadAsync();
+
+            using FileStream downloadFileStream = File.OpenWrite(downloadFilePath);
+
+            await download.Content.CopyToAsync(downloadFileStream);
+
+            downloadFileStream.Close();
+
+            //Deleting a Container:
+
+            Console.WriteLine("Type y to Delete or n to exit:\n");
+
+            bool choise = Console.ReadLine() == "y" ? true : false;
+
+            if (choise)
+            {
+
+                await containerClient.DeleteAsync();
+
+                File.Delete(localFilePath);
+
+                File.Delete(downloadFilePath);
+
+                Console.WriteLine("Done!");
+            }
+            else
+                Console.WriteLine("Exiting..");
+
+
+            Console.ReadKey();
         }
     }
 }
